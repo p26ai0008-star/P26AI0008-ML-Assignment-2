@@ -1,0 +1,403 @@
+==============================================================================
+ML_assignment_P26AI0008.ipynb - final saved run log
+==============================================================================
+
+This file contains the printed outputs stored in the committed
+notebook ML_assignment_P26AI0008.ipynb (top to bottom), so the
+final numbers are readable without launching Jupyter. The same
+outputs can be regenerated with ./reproduce.sh full (about 2-4
+hours on a laptop CPU).
+
+Random seed: 260008 (roll number P26AI0008). Dataset: scikit-learn
+Olivetti faces, split 240 train / 80 val / 80 test (6/2/2 per identity),
+stored in data/olivetti_split.npz.
+
+Dependency note: the committed figures were rendered with
+matplotlib 3.8.2. The saved split, all Q1 results and all five
+figures were re-verified to reproduce exactly on Linux with numpy
+1.26/2.1, scikit-learn 1.3/1.4/1.5 and matplotlib 3.8/3.9; the
+boosting accuracy tables reproduce exactly within one environment
+and can drift by a few hundredths on a different OS/BLAS stack (see
+README.md, 'Determinism').
+
+
+------------------------------------------------------------------------------
+[cell  1] Dataset sizes
+------------------------------------------------------------------------------
+Train: 240
+Validation: 80
+Test: 80
+
+
+------------------------------------------------------------------------------
+[cell  4] Q1(a) Single tree hyperparameter grid
+------------------------------------------------------------------------------
+max_depth: 2 min_samples_leaf: 1
+max_depth: 2 min_samples_leaf: 2
+max_depth: 2 min_samples_leaf: 4
+max_depth: 4 min_samples_leaf: 1
+max_depth: 4 min_samples_leaf: 2
+max_depth: 4 min_samples_leaf: 4
+max_depth: 8 min_samples_leaf: 1
+max_depth: 8 min_samples_leaf: 2
+max_depth: 8 min_samples_leaf: 4
+max_depth: 16 min_samples_leaf: 1
+max_depth: 16 min_samples_leaf: 2
+max_depth: 16 min_samples_leaf: 4
+max_depth: None min_samples_leaf: 1
+max_depth: None min_samples_leaf: 2
+max_depth: None min_samples_leaf: 4
+
+
+------------------------------------------------------------------------------
+[cell  5] Q1(a) Selected single tree (frozen)
+------------------------------------------------------------------------------
+Best max_depth: None
+Best min_samples_leaf: 1
+Train accuracy: 1.0
+Val accuracy: 0.6125
+Test accuracy: 0.5875
+No. of leaves: 42
+Mean samples per leaf: 5.714285714285714
+Fraction of leaves with one training example: 0.047619047619047616
+
+
+------------------------------------------------------------------------------
+[cell  6] Q1(b) Bagging vs ensemble size B
+------------------------------------------------------------------------------
+B: 1 | Train: 0.7458333333333333 | Validation: 0.35 | Test: 0.3125 | Avg distinct: 150.0
+B: 5 | Train: 0.9666666666666667 | Validation: 0.625 | Test: 0.6125 | Avg distinct: 155.2
+B: 10 | Train: 1.0 | Validation: 0.8 | Test: 0.75 | Avg distinct: 153.4
+B: 25 | Train: 1.0 | Validation: 0.8125 | Test: 0.825 | Avg distinct: 153.88
+B: 50 | Train: 1.0 | Validation: 0.8125 | Test: 0.825 | Avg distinct: 152.48
+B: 100 | Train: 1.0 | Validation: 0.85 | Test: 0.85 | Avg distinct: 152.45
+B: 200 | Train: 1.0 | Validation: 0.85 | Test: 0.8625 | Avg distinct: 152.51
+Theoretical expected distinct examples: 151.8931938460841
+
+
+------------------------------------------------------------------------------
+[cell  7] Q1(c) OOB accuracy, pairwise disagreement, vote margin
+------------------------------------------------------------------------------
+B | OOB accuracy | Disagreement | Mean vote margin
+1 | 0.3222 | 0 | 1.0
+5 | 0.3271 | 0.7912 | 0.2425
+10 | 0.3898 | 0.8103 | 0.2488
+25 | 0.6042 | 0.7905 | 0.272
+50 | 0.7333 | 0.7895 | 0.2822
+100 | 0.7875 | 0.7915 | 0.2742
+200 | 0.825 | 0.7907 | 0.2741
+
+
+------------------------------------------------------------------------------
+[cell  8] Q1(c) Figure saved to figures/bagging_metrics.png
+------------------------------------------------------------------------------
+[figure saved to figures/bagging_metrics.png]
+
+
+------------------------------------------------------------------------------
+[cell  9] Q1 Final ensemble selection
+------------------------------------------------------------------------------
+Selected ensemble size: 100
+
+
+------------------------------------------------------------------------------
+[cell 10] Q1(d) Single tree vs bagging on clean and masked test sets
+------------------------------------------------------------------------------
+
+ Clean test set
+Single tree accuracy: 0.5875
+Single tree mean confidence: 1.0
+Bagging accuracy: 0.85
+Bagging mean confidence: 0.41600000000000004
+
+ Masked test set
+Single tree accuracy: 0.4125
+Single tree mean confidence: 1.0
+Bagging accuracy: 0.65
+Bagging mean confidence: 0.274125
+
+Test image index: 9
+True identity: 0
+Tree prediction: 25
+Tree confidence: 1.0
+Bagging prediction: 0
+Bagging confidence: 0.3
+Bagging vote counts: {0: 30, 3: 4, 4: 8, 7: 1, 9: 2, 11: 4, 15: 1, 16: 9, 21: 1, 22: 6, 25: 16, 26: 1, 27: 2, 35: 1, 36: 6, 37: 6, 39: 2}
+
+Test image index: 6
+True identity: 0
+Tree prediction: 15
+Tree confidence: 1.0
+Bagging prediction: 0
+Bagging confidence: 0.42
+Bagging vote counts: {0: 42, 1: 2, 3: 5, 4: 1, 5: 1, 6: 1, 7: 4, 10: 1, 12: 1, 13: 2, 14: 1, 15: 16, 16: 3, 17: 3, 22: 1, 23: 6, 24: 2, 25: 2, 27: 1, 29: 1, 31: 2, 35: 1, 39: 1}
+
+Test image index: 31
+True identity: 3
+Tree prediction: 30
+Tree confidence: 1.0
+Bagging prediction: 30
+Bagging confidence: 0.27
+Bagging vote counts: {1: 5, 2: 2, 3: 3, 5: 1, 8: 1, 9: 2, 10: 1, 12: 7, 14: 4, 15: 1, 17: 1, 18: 2, 19: 2, 20: 9, 21: 3, 22: 5, 23: 2, 25: 2, 26: 2, 27: 5, 28: 4, 29: 2, 30: 27, 31: 1, 33: 3, 36: 1, 39: 2}
+
+Test image index: 46
+True identity: 4
+Tree prediction: 2
+Tree confidence: 1.0
+Bagging prediction: 2
+Bagging confidence: 0.29
+Bagging vote counts: {1: 3, 2: 29, 3: 2, 4: 2, 5: 1, 8: 1, 12: 7, 13: 1, 14: 2, 16: 2, 17: 5, 18: 2, 20: 3, 22: 8, 23: 2, 24: 5, 25: 2, 26: 1, 27: 1, 28: 1, 30: 1, 31: 1, 34: 1, 35: 2, 36: 1, 37: 3, 38: 2, 39: 9}
+
+[figure saved to figures/bagging_face_cases.png]
+
+
+------------------------------------------------------------------------------
+[cell 12] Q2(a) One SAMME round (worked example)
+------------------------------------------------------------------------------
+Initial weights: [0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111
+ 0.11111111 0.11111111 0.11111111]
+Weak learner predictions: [0 0 0 1 1 1 1 1 1]
+Weighted error: 0.3333333333333333
+Alpha: 1.3862943611198908
+Updated weights: [0.05555556 0.05555556 0.05555556 0.05555556 0.05555556 0.05555556
+ 0.22222222 0.22222222 0.22222222]
+Weight sum: 1.0
+
+
+------------------------------------------------------------------------------
+[cell 13] Q2(b) SAMME grid search on Olivetti faces
+------------------------------------------------------------------------------
+Depth | Rounds | Validation accuracy
+1 | 10 | 0.0375
+1 | 25 | 0.05
+1 | 50 | 0.05
+1 | 100 | 0.1625
+2 | 10 | 0.0875
+2 | 25 | 0.0625
+2 | 50 | 0.15
+2 | 100 | 0.15
+3 | 10 | 0.125
+3 | 25 | 0.1125
+3 | 50 | 0.2625
+3 | 100 | 0.2375
+4 | 10 | 0.1625
+4 | 25 | 0.275
+4 | 50 | 0.1875
+4 | 100 | 0.2125
+
+Selected depth: 4
+Selected rounds: 25
+Best validation accuracy: 0.275
+
+[figure saved to figures/adaboost_training_diagnostics.png]
+
+
+------------------------------------------------------------------------------
+[cell 14] Q2(c) Bagging vs boosting (accuracy, training time, weights)
+------------------------------------------------------------------------------
+Method | Learners | Train accuracy | Validation accuracy | Clean test accuracy | Training time (seconds)
+Bagging | 25 | 1.0 | 0.8125 | 0.825 | 110.6282
+Boosting | 25 | 0.6708 | 0.275 | 0.2875 | 36.9363
+Bagging | 50 | 1.0 | 0.8125 | 0.825 | 224.104
+Boosting | 50 | 0.5792 | 0.1875 | 0.1875 | 73.6583
+Bagging | 100 | 1.0 | 0.85 | 0.85 | 443.1388
+Boosting | 100 | 0.8583 | 0.2125 | 0.325 | 146.9565
+
+Training image index: 6
+True identity: 1
+Final sample weight: 0.04228624709147097
+
+Round | Prediction | Correct | Sample weight
+1 | 0 | False | 0.004643
+2 | 1 | True | 0.000833
+3 | 2 | False | 0.000965
+4 | 1 | True | 0.000128
+5 | 4 | False | 0.000162
+6 | 12 | False | 0.000234
+7 | 14 | False | 0.000403
+8 | 39 | False | 0.001049
+9 | 2 | False | 0.001392
+10 | 1 | True | 0.000123
+11 | 3 | False | 0.000177
+12 | 7 | False | 0.000261
+13 | 12 | False | 0.000393
+14 | 14 | False | 0.000582
+15 | 22 | False | 0.000898
+16 | 20 | False | 0.00131
+17 | 1 | True | 0.000105
+18 | 1 | True | 8e-06
+19 | 36 | False | 1.2e-05
+20 | 12 | False | 1.6e-05
+21 | 17 | False | 2.4e-05
+22 | 14 | False | 4e-05
+23 | 11 | False | 5.9e-05
+24 | 39 | False | 8.6e-05
+25 | 19 | False | 0.000129
+26 | 1 | True | 9e-06
+27 | 12 | False | 1.4e-05
+28 | 23 | False | 2.1e-05
+29 | 25 | False | 3e-05
+30 | 14 | False | 4.5e-05
+31 | 37 | False | 6.9e-05
+32 | 31 | False | 0.000101
+33 | 1 | True | 8e-06
+34 | 3 | False | 1.2e-05
+35 | 30 | False | 1.7e-05
+36 | 12 | False | 2.6e-05
+37 | 25 | False | 3.9e-05
+38 | 16 | False | 6e-05
+39 | 20 | False | 0.000109
+40 | 39 | False | 0.000178
+41 | 3 | False | 0.000277
+42 | 30 | False | 0.000427
+43 | 12 | False | 0.000697
+44 | 14 | False | 0.001132
+45 | 8 | False | 0.001703
+46 | 20 | False | 0.002467
+47 | 39 | False | 0.003638
+48 | 3 | False | 0.005238
+49 | 4 | False | 0.007937
+50 | 1 | True | 0.000541
+51 | 36 | False | 0.00083
+52 | 1 | True | 5.5e-05
+53 | 20 | False | 7.7e-05
+54 | 2 | False | 0.000106
+55 | 37 | False | 0.000165
+56 | 3 | False | 0.000238
+57 | 30 | False | 0.000363
+58 | 12 | False | 0.000539
+59 | 32 | False | 0.000786
+60 | 14 | False | 0.001089
+61 | 20 | False | 0.001687
+62 | 16 | False | 0.002583
+63 | 3 | False | 0.003818
+64 | 7 | False | 0.00569
+65 | 30 | False | 0.008209
+66 | 17 | False | 0.011865
+67 | 14 | False | 0.01809
+68 | 1 | True | 0.001258
+69 | 20 | False | 0.001927
+70 | 16 | False | 0.002803
+71 | 3 | False | 0.003953
+72 | 39 | False | 0.00556
+73 | 1 | True | 0.000397
+74 | 15 | False | 0.000595
+75 | 14 | False | 0.0009
+76 | 27 | False | 0.001326
+77 | 20 | False | 0.001914
+78 | 3 | False | 0.002597
+79 | 28 | False | 0.003747
+80 | 39 | False | 0.005656
+81 | 33 | False | 0.008509
+82 | 36 | False | 0.01254
+83 | 14 | False | 0.018173
+84 | 1 | True | 0.001546
+85 | 20 | False | 0.002307
+86 | 3 | False | 0.003448
+87 | 0 | False | 0.005289
+88 | 19 | False | 0.007532
+89 | 1 | True | 0.000575
+90 | 25 | False | 0.000852
+91 | 14 | False | 0.001331
+92 | 20 | False | 0.001859
+93 | 39 | False | 0.002816
+94 | 28 | False | 0.004261
+95 | 37 | False | 0.006057
+96 | 30 | False | 0.008674
+97 | 12 | False | 0.012766
+98 | 36 | False | 0.018175
+99 | 14 | False | 0.026438
+100 | 20 | False | 0.042286
+
+[figure saved to figures/adaboost_high_weight_face.png]
+
+
+------------------------------------------------------------------------------
+[cell 15] Q2(d) Tree vs bagging vs boosting on clean and masked test sets
+------------------------------------------------------------------------------
+Model | Test set | Accuracy | Mean winning confidence
+Single tree | Clean | 0.5875 | 1.0
+Bagging | Clean | 0.85 | 0.416
+Boosting | Clean | 0.2875 | 0.1392
+Single tree | Masked | 0.4125 | 1.0
+Bagging | Masked | 0.65 | 0.2741
+Boosting | Masked | 0.2 | 0.1392
+
+Selected test image: 9
+True identity: 0
+Bagging clean prediction: 0
+Bagging masked prediction: 0
+Bagging clean vote counts: [30  4  8  1  2  4  1  9  1  6 16  1  2  1  6  6  2]
+Bagging masked vote counts: [17  3  8  6  1  1  1  4  2  4  1  4  2  2  4  1  7  1 11  4  4  5  4  1
+  2]
+Boosting clean prediction: 12
+Boosting masked prediction: 37
+Boosting clean confidence: 0.12378158672244187
+Boosting masked confidence: 0.14244622760987302
+Bagging tree predictions, clean: [37 36 25  0 36  7  9  0 11 37  0  0 16 35  0 25  4 25  0  0  3  0  4  0
+  3  0  0 37 11 22  0  4 25  3 25  0 25  0 22  0 25  0  0 37 22 16 16 25
+  0  0 22 39  0  0  0 25  9 15 22 16 16 37 25  0  0 11 25  0 36  0 25  4
+ 27 25 25  4  0 36 37 26  0 36  0 21  4  3 16 22 27  4 25 39  4 11 16  0
+ 16 16 25 36]
+Bagging tree predictions, masked: [37 36 20  0 38  7  9  0 11 22 30 30 30 35  0 25  4 25 30  0  1  0  4  0
+  3  3 13 37 11 11  0  4 35 30  3  0 25  0 22  0 35 14 33 23  3 16 16 25
+  0 21 30 39 12 13 33 25  3 26 22 16  1 37 13  0  0 11 25 30 36  0 35 30
+  8  3 13  4 33 36 37  1  0 36  0 21 12  3 33 30 30  4 25 39  4 30 22  0
+  3 16 20 36]
+
+[figure saved to figures/bagging_boosting_masked_face.png]
+
+
+Highest-weight training image at round 25: 53
+True identity: 8
+Weight: 0.06746605172327319
+Boosting predictions in rounds 1-25: [0, 1, 2, 3, 4, 12, 8, 39, 2, 1, 3, 7, 12, 14, 22, 20, 1, 8, 36, 12, 17, 14, 20, 39, 19]
+
+
+------------------------------------------------------------------------------
+[cell 16] Q3(a) Bias, variance and test accuracy (30 repetitions)
+------------------------------------------------------------------------------
+Model | Bias squared | Variance | Mean test accuracy | Std test accuracy
+Single tree | 0.373 | 0.6403 | 0.4933 | 0.0456
+Bagging | 0.4934 | 0.0243 | 0.7888 | 0.0282
+Boosting | 0.8855 | 0.0307 | 0.2125 | 0.0766
+
+
+------------------------------------------------------------------------------
+[cell 17] Q3(b) Effect of tree depth on bias and variance
+------------------------------------------------------------------------------
+Depth | Model | Bias squared | Variance | Mean accuracy | Std accuracy
+2 | Single tree | 0.9112 | 0.0388 | 0.0612 | 0.0126
+2 | Bagging | 0.9315 | 0.0098 | 0.155 | 0.061
+Variance removed by bagging: 0.029
+
+8 | Single tree | 0.7722 | 0.138 | 0.1633 | 0.0343
+8 | Bagging | 0.8019 | 0.0162 | 0.4762 | 0.0688
+Variance removed by bagging: 0.1218
+
+None | Single tree | 0.373 | 0.6403 | 0.4933 | 0.0456
+None | Bagging | 0.4918 | 0.0245 | 0.7883 | 0.0402
+Variance removed by bagging: 0.6159
+
+
+------------------------------------------------------------------------------
+[cell 18] Q3(c) Leaf occupancy and tree disagreement
+------------------------------------------------------------------------------
+Depth | Mean leaf samples | Singleton fraction | Disagreement
+2 | 80.0 | 0.0 | 0.9637
+8 | 26.6667 | 0.0 | 0.9253
+None | 6.0 | 0.0 | 0.8147
+
+
+------------------------------------------------------------------------------
+[cell 19] Q3(d) Final comparison
+------------------------------------------------------------------------------
+Model | Clean accuracy | Masked accuracy | Bias squared | Variance
+Single tree | 0.5875 | 0.4125 | 0.373 | 0.6403
+Bagging | 0.85 | 0.65 | 0.4918 | 0.0245
+Boosting | 0.2875 | 0.2 | 0.8855 | 0.0307
+
+
+==============================================================================
+End of log
+==============================================================================

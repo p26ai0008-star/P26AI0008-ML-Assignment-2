@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Outputs of a full reproduction run (regenerated on demand)
+reproduced/
+
+# OS
+.DS_Store
+Thumbs.db

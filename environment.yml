@@ -1,0 +1,18 @@
+# Conda environment file for ML_assignment_P26AI0008
+# Create and activate with:
+#   conda env create -f environment.yml
+#   conda activate ml_assignment
+#
+# A pip-only alternative is available in requirements.txt.
+name: ml_assignment
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy>=1.24
+  - scikit-learn>=1.3
+  - matplotlib>=3.8
+  - joblib>=1.3
+  - jupyter>=1.0
+  - nbconvert>=7.0
+  - ipykernel>=6.25
